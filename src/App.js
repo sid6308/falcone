@@ -9,10 +9,10 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={Home}></Route>
         <Route path="/" element={Reset}></Route>
-      </Routes>
+      </Routes> */}
       <Falcone />
       <Footer />
     </>
