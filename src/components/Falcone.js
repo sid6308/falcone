@@ -9,7 +9,6 @@ const Falcone = () => {
   const [selectedVehicles, setSelectedVehicles] = useState({});
   const [token, setToken] = useState([]);
   const [showmessage, setShowmessage] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [planetres, setPlanetRes] = useState("");
   const [time, setTime] = useState(0);
   const [finalreq, setFinalreq] = useState({});
@@ -31,14 +30,14 @@ const Falcone = () => {
   const handleDestSelect = (e, destIndex) => {
     setSelectedPlanets({
       ...selectedPlanets,
-      [destIndex]: e.target.value
+      [destIndex]: e.target.value,
     });
   };
 
   const handleVehicleSelect = (e, destIndex) => {
     setSelectedVehicles({
       ...selectedVehicles,
-      [destIndex]: e.target.value
+      [destIndex]: e.target.value,
     });
   };
 
@@ -62,9 +61,9 @@ const Falcone = () => {
           {
             method: "POST",
             headers: {
-              accept: "application/json"
+              accept: "application/json",
             },
-            body: ""
+            body: "",
           }
         );
         const data = await response.json();
@@ -86,7 +85,7 @@ const Falcone = () => {
     const newreq = {
       token: token,
       planet_names: Object.values(selectedPlanets),
-      vehicle_names: Object.values(selectedVehicles)
+      vehicle_names: Object.values(selectedVehicles),
     };
     setFinalreq(newreq);
     const asyncPostCallFind = async () => {
@@ -95,9 +94,9 @@ const Falcone = () => {
           method: "POST",
           headers: {
             accept: "application/json",
-            "Content-type": "application/json"
+            "Content-type": "application/json",
           },
-          body: JSON.stringify(newreq)
+          body: JSON.stringify(newreq),
         });
         const data = await response.json();
         console.log(data);
@@ -141,7 +140,25 @@ const Falcone = () => {
               <h3>Fetching Data</h3>
             </div>
           ) : (
-            <div>{planetres !== false ? <p>{planetres}</p> : null}</div>
+            <div>
+              {planetres !== false ? (
+                <div className="success">
+                  <h4>
+                    Success! Congratulation on Finding Falcone. King Shah is
+                    mighty pleased.
+                  </h4>
+                  <p>Time: {time}</p>
+                  <p>Planet Found: {planetres}</p>
+                  <button
+                    className="btn"
+                    type="button"
+                    onClick={() => window.location.reload()}
+                  >
+                    Start Again
+                  </button>
+                </div>
+              ) : null}
+            </div>
           )}
         </div>
       ) : (
@@ -341,25 +358,6 @@ const Falcone = () => {
           </button>
         </div>
       )}
-      <p>Des1: {selectedPlanets[1]}</p>
-      <p>Des2: {selectedPlanets[2]}</p>
-      <p>Des3: {selectedPlanets[3]}</p>
-      <p>Des4: {selectedPlanets[4]}</p>
-      <p>P1V: {selectedVehicles[1]}</p>
-      <p>P2V : {selectedVehicles[2]}</p>
-      <p>P3v: {selectedVehicles[3]}</p>
-      <p>P4v: {selectedVehicles[4]}</p>
-      <p>Token: {token} </p>
-      <p>Res: {planetres}</p>
-      <p>Success: {success}</p>
-      <p>request: {JSON.stringify(finalreq)}</p>
-      <button
-        className="btn"
-        type="button"
-        onClick={() => window.location.reload()}
-      >
-        Play Again
-      </button>
     </div>
   );
 };
