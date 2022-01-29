@@ -30,14 +30,14 @@ const Falcone = () => {
   const handleDestSelect = (e, destIndex) => {
     setSelectedPlanets({
       ...selectedPlanets,
-      [destIndex]: e.target.value,
+      [destIndex]: e.target.value
     });
   };
 
   const handleVehicleSelect = (e, destIndex) => {
     setSelectedVehicles({
       ...selectedVehicles,
-      [destIndex]: e.target.value,
+      [destIndex]: e.target.value
     });
   };
 
@@ -61,9 +61,9 @@ const Falcone = () => {
           {
             method: "POST",
             headers: {
-              accept: "application/json",
+              accept: "application/json"
             },
-            body: "",
+            body: ""
           }
         );
         const data = await response.json();
@@ -85,7 +85,7 @@ const Falcone = () => {
     const newreq = {
       token: token,
       planet_names: Object.values(selectedPlanets),
-      vehicle_names: Object.values(selectedVehicles),
+      vehicle_names: Object.values(selectedVehicles)
     };
     setFinalreq(newreq);
     const asyncPostCallFind = async () => {
@@ -94,9 +94,9 @@ const Falcone = () => {
           method: "POST",
           headers: {
             accept: "application/json",
-            "Content-type": "application/json",
+            "Content-type": "application/json"
           },
-          body: JSON.stringify(newreq),
+          body: JSON.stringify(newreq)
         });
         const data = await response.json();
         console.log(data);
@@ -199,10 +199,16 @@ const Falcone = () => {
                             id={d1v.name}
                             onClick={(e) => handleVehicleSelect(e, 1)}
                             value={d1v.name}
-                            disabled={d1v.total_no === 0}
+                            disabled={
+                              d1v.total_no === 0 ||
+                              d1v.max_distance <
+                                planets.find(
+                                  (p) => p.name === selectedPlanets[1]
+                                ).distance
+                            }
                           />
                           <label htmlFor={d1v.name}>
-                            {d1v.name + " " + d1v.speed}({d1v.total_no})
+                            {d1v.name}({d1v.total_no})
                           </label>
                         </li>
                       </ul>
@@ -244,7 +250,13 @@ const Falcone = () => {
                             name="des2"
                             onClick={(e) => handleVehicleSelect(e, 2)}
                             id={d2v.name + 2}
-                            disabled={d2v.total_no === 0}
+                            disabled={
+                              d2v.total_no === 0 ||
+                              d2v.max_distance <
+                                planets.find(
+                                  (p) => p.name === selectedPlanets[2]
+                                ).distance
+                            }
                             value={d2v.name}
                           />
                           <label htmlFor={d2v.name + 2}>
@@ -290,7 +302,13 @@ const Falcone = () => {
                             name="des3"
                             id={d3v.name + 3}
                             onClick={(e) => handleVehicleSelect(e, 3)}
-                            disabled={d3v.total_no === 0}
+                            disabled={
+                              d3v.total_no === 0 ||
+                              d3v.max_distance <
+                                planets.find(
+                                  (p) => p.name === selectedPlanets[3]
+                                ).distance
+                            }
                             value={d3v.name}
                           />
                           <label htmlFor={d3v.name + 3}>
@@ -336,7 +354,13 @@ const Falcone = () => {
                             name="des4"
                             id={d4v.name + 4}
                             onClick={(e) => handleVehicleSelect(e, 4)}
-                            disabled={d4v.total_no === 0}
+                            disabled={
+                              d4v.total_no === 0 ||
+                              d4v.max_distance <
+                                planets.find(
+                                  (p) => p.name === selectedPlanets[4]
+                                ).distance
+                            }
                             value={d4v.name}
                           />
                           <label htmlFor={d4v.name + 4}>
